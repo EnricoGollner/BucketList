@@ -68,13 +68,35 @@ struct ContentView: View{
                 }
             }
         } else {
-            Button("Unlock the data"){
-                viewModel.authenticate()
+            VStack{
+                Spacer()
+                Label("BucketList", systemImage: "airplane.departure")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
+                    .padding(.bottom, 20)
+                Spacer()
+                
+                Button("Unlock the data"){
+                    viewModel.authenticate()
+                }
+                .padding()
+                .background(.blue)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                Spacer()
+                Spacer()
             }
-            .padding()
-            .background(.blue)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
+            .alert("Error authenticating", isPresented: $viewModel.showErrorInIdAlert){
+                Button("Cancel", role: .cancel){}
+                Button("Try again") { viewModel.authenticate() }
+            } message: {
+                if let error = viewModel.errorOcurred{
+                    Text(error.localizedDescription)
+                } else{
+                    Text("No error!")
+                }
+            }
         }
     }
 }

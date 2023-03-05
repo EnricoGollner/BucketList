@@ -16,6 +16,9 @@ extension ContentView{
         @Published var selectedPlace: Location?
         @Published var isUnlocked = false
         
+        @Published var showErrorInIdAlert = false
+        @Published var errorOcurred: Error?
+        
         let savePath = FileManager.documentsDirectory.appendingPathExtension("SavedPlaces")
         
         init(){
@@ -67,7 +70,10 @@ extension ContentView{
                             self.isUnlocked = true
                         }
                     } else  {
-                        // error
+                        Task{ @MainActor in
+                            self.errorOcurred = authenticationError
+                            self.showErrorInIdAlert = true
+                        }
                     }
                 }
             } else{
