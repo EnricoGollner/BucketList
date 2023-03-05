@@ -64,7 +64,7 @@ extension ContentView{
                 context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason){ success, authenticationError in
                     if success{
                         Task { @MainActor in
-                            self.isUnlocked
+                            self.isUnlocked = true
                         }
                     } else  {
                         // error
