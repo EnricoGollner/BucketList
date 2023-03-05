@@ -9,7 +9,7 @@ import LocalAuthentication
 import SwiftUI
 
 struct UsingTouchIDAndFaceIDWithSwiftUI: View {
-    @State private var isUnlocked = false
+    @State private var isUnlocked = true
     
     var body: some View {
         VStack{
